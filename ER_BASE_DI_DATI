@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-11-17T13:59:00.003Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="0yEWqDW6cduOvg-EwGid" version="20.5.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-11-17T14:00:15.564Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="6_zoNqtJboYrJPTBT6jm" version="20.5.3" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="391" dy="218" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -244,8 +244,8 @@
             <mxPoint x="540" y="360" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="CxwJHIt8R8rBzv6nAWaC-69" value="Text" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="552.5" y="335" width="60" height="30" as="geometry" />
+        <mxCell id="CxwJHIt8R8rBzv6nAWaC-69" value="SALDO INIZ." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="545" y="352.5" width="75" height="15" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
