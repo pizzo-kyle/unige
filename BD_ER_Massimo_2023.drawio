@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-07-17T08:58:08.038Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="Wt6k_zmdS6Pm_Qim4_S_" version="21.2.3" type="github">
+<mxfile host="app.diagrams.net" modified="2023-07-17T09:11:39.391Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="q1p-P5OQ7K_bZmR4MI9H" version="21.2.3" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="1434" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -804,8 +804,8 @@
             <mxPoint x="1211.8200000000002" y="755" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="mI0G9RqRu6ml6arS59rm-76" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;(1,N)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="1179" y="580" width="46" height="20" as="geometry" />
+        <mxCell id="mI0G9RqRu6ml6arS59rm-76" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;(1,1)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1191.5" y="584" width="46" height="20" as="geometry" />
         </mxCell>
         <mxCell id="mI0G9RqRu6ml6arS59rm-77" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;(1,1)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="1141" y="903" width="46" height="20" as="geometry" />
@@ -1077,6 +1077,9 @@
               <mxPoint x="920" y="390" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="3pxgKF3K3UY6ERB2-cvl-14" value="&lt;h1&gt;Vincoli&lt;/h1&gt;&lt;p&gt;Se Scuola.Finanziamento = true -&amp;gt; verifica se Persona.Referente = Persona.PatecipaProgFin = true&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1585" y="1084.5" width="575" height="405.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
