@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-07-18T15:38:16.516Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="6Ru2LkWVz0pCfSRyPxQ0" version="21.6.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-07-18T15:39:12.789Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="mMQ5KpAvVygG-aS8ulmN" version="21.6.2" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
-    <mxGraphModel dx="574" dy="306" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+    <mxGraphModel dx="1195" dy="637" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1095,6 +1095,12 @@
         </mxCell>
         <mxCell id="PH95ImstwBu5i2bBudpi-6" value="INFO AMBIENTALI" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="337.5" y="1010" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9Q-TVP5sQ0k48pNDZRx9-28" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;(1,N)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="372.5" y="790" width="46" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="9Q-TVP5sQ0k48pNDZRx9-29" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;(1,1)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="420" y="987" width="46" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
