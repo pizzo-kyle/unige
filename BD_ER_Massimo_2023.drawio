@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-07-19T09:36:29.164Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="9WbXqFiq4DgYKhvo9o4V" version="21.6.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-07-19T09:38:08.738Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="dMv2gdLxyTyaAbEgjyr3" version="21.6.2" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="1434" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -813,7 +813,7 @@
             <mxPoint x="1870" y="805.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="mI0G9RqRu6ml6arS59rm-86" value="APPARTIENE" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="mI0G9RqRu6ml6arS59rm-86" value="HA" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1700" y="561.5" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="mI0G9RqRu6ml6arS59rm-87" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="mI0G9RqRu6ml6arS59rm-86" edge="1">
@@ -876,7 +876,7 @@
         <mxCell id="mI0G9RqRu6ml6arS59rm-111" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;Esposizione&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="1338.5" y="880.5" width="50" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="mI0G9RqRu6ml6arS59rm-112" value="APPARTIENE" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="mI0G9RqRu6ml6arS59rm-112" value="E&#39; CONTENUTA" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1470" y="795.5" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="mI0G9RqRu6ml6arS59rm-113" value="" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="mI0G9RqRu6ml6arS59rm-112" target="1GqtW3D0vnaD6hVMnLZm-21" edge="1">
