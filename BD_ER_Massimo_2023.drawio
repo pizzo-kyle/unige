@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-07-28T13:35:00.884Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="ULBbDbvUJJlpnNi6Ng0G" version="21.6.5" type="github">
+<mxfile host="app.diagrams.net" modified="2023-07-28T13:36:16.255Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="Zmas_G4lt3RRZxC95DzU" version="21.6.5" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
-    <mxGraphModel dx="3306" dy="1597" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+    <mxGraphModel dx="2722" dy="1315" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -289,8 +289,8 @@
             <mxPoint x="1290" y="1000" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="OYPGstpTxhAQt0Nlltqd-28" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;NumReplica&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="1362" y="1002" width="60" height="30" as="geometry" />
+        <mxCell id="OYPGstpTxhAQt0Nlltqd-28" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;IDReplica&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1388.5" y="985.5" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="OYPGstpTxhAQt0Nlltqd-29" value="" style="endArrow=none;html=1;rounded=0;entryX=0.188;entryY=0.006;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="OYPGstpTxhAQt0Nlltqd-31" target="1GqtW3D0vnaD6hVMnLZm-21" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
