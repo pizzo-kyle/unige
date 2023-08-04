@@ -13,4 +13,4 @@ modifiche di Massimo 01/08:
 modifiche di Massimo 04/08:
 -rimosso nell'ER ristrutturato l'indentificatore esterno tra Specie e Replica in quanto la chiave esterna verrà poi presa in fase di traduzione (tutte le modifiche dell'ER ristruttarato vanno portate nell'ER)
 -aggiunte nello schema logico le chiavi esterne 'ClasseRilev' e 'IndividuoRilev'
--per fare in modo che il responsabile dell'inserimento di una rilevazione sia un individuo o una classe possiamo fare in modo che i valori dell'attributo 'RespRilev' debbano essere contenuti nell'entità Classe oppure nell'entità Persona. Oppure ancora potremmo eliminare l'attributo 'RespRilev' e utilizzare 'ClasseRilev' e 'IndividuoRilev'
+-per fare in modo che il responsabile dell'inserimento di una rilevazione sia un individuo o una classe possiamo fare in modo che i valori dell'attributo 'RespRilev' debbano essere contenuti nell'entità Classe oppure nell'entità Persona (trigger); stessa cosa per 'RespIns' quando bisogna inserirlo. In questo caso però le chiavi esterne diventano inutili.
