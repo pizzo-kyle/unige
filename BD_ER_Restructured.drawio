@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-08-07T10:32:23.334Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="4aR22GL6LvE5p3bb807z" version="21.6.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-07T10:52:29.615Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="KQJ2sEjVPYbD-GKYfOSw" version="21.6.6" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="2722" dy="1315" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -1158,8 +1158,8 @@
             <mxPoint x="944.31" y="710.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_j_PawiXZ5yXBV77aKe5-8" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Nominativo&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="900" y="680.5" width="60" height="40" as="geometry" />
+        <mxCell id="_j_PawiXZ5yXBV77aKe5-8" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Tipo&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="874.31" y="674.5" width="60" height="40" as="geometry" />
         </mxCell>
         <mxCell id="_j_PawiXZ5yXBV77aKe5-10" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;(0,1)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="603" y="550" width="46" height="20" as="geometry" />
