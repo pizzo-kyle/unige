@@ -15,3 +15,10 @@ modifiche di Massimo 04/08:
 -aggiunte nello schema logico le chiavi esterne 'ClasseRilev' e 'IndividuoRilev'
 -per fare in modo che il responsabile dell'inserimento di una rilevazione sia un individuo o una classe possiamo fare in modo che i valori dell'attributo 'RespRilev' debbano essere contenuti nell'entità Classe oppure nell'entità Persona (trigger); stessa cosa per 'RespIns' quando bisogna inserirlo. In questo caso però le chiavi esterne diventano inutili.
 -ritoccati i vincoli nel word
+
+modifiche di Massimo 14/08:
+-nell'ER ristrutturato:
+  modificata la cardinalità della associazione tra Persona e Scuola dalla parte di Persona (da 1,1 a 0,N): 0 come minima perché possiamo avere persone che non sono per forza referenti per la scuola e N come massima perché così facendo (quindi ammettendo che una persona possa essere referente per più scuole) in fase di traduzione avremo un entità 'Referente' e risolviamo il problema dell'altra volta delle chiavi esterne 'cicliche'.
+- nello schema logico:
+  inserita la tabella Referente di conseguenza a quanto scritto prima
+- nel word del progetto: da capire se vogliamo fare in modo che email e telefono non possano essere condivisi da due o più persone diverse, il che è sensato ma bisogna fare un vincolo apposito.
