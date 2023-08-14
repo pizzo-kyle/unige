@@ -22,3 +22,5 @@ modifiche di Massimo 14/08:
 - nello schema logico:
   inserita la tabella Referente di conseguenza a quanto scritto prima
 - nel word del progetto: da capire se vogliamo fare in modo che email e telefono non possano essere condivisi da due o più persone diverse, il che è sensato ma bisogna fare un vincolo apposito.
+  
+Nota: molto probabilmente riusciamo tramite trigger a gestire il fatto che i responsabili delle rilevazioni e degli inserimenti siano o classi o persone (perciò potremmo fare a meno dell'entità Responsabile)
