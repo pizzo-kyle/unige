@@ -10,8 +10,8 @@ CREATE TABLE Persona
  Telefono VARCHAR(16),
  Ruolo VARCHAR(32) NOT NULL,
  ReferenteProg BOOLEAN NOT NULL,
- PartecipaProgFin BOOLEAN NOT NULL
- --,FOREIGN KEY (CodMec) REFERENCES Scuola
+ PartecipaProgFin BOOLEAN NOT NULL,
+ Scuola INTEGER, --FOREIGN KEY to add with ALTER TABLE
 );
 
 CREATE TABLE Scuola
@@ -22,27 +22,30 @@ CREATE TABLE Scuola
  Finanziamento BOOLEAN NOT NULL,
  TipoFin VARCHAR(32),
  Collabora BOOLEAN NOT NULL,
- Referente INTEGER NOT NULL,
- FOREIGN KEY (Referente) REFERENCES Persona(CodP)
+ Referente INTEGER,
+ FOREIGN KEY (Referente) REFERENCES Persona(CodP) --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
 );
+
+ALTER TABLE Persona ADD CONSTRAINT fk_persona_scuola
+FOREIGN KEY (Scuola) REFERENCES Scuola(CodMec); --ON UPDATE CASCADE, ON DELETE SET NULL
 
 CREATE TABLE Classe
 (CodC INTEGER PRIMARY KEY,
  Ordine VARCHAR(32) NOT NULL,
  TipoScuola VARCHAR(48) NOT NULL,
- DocRif INTEGER NOT NULL,
- Scuola INTEGER NOT NULL,
- FOREIGN KEY (DocRif) REFERENCES Persona(CodP),
- FOREIGN KEY (Scuola) REFERENCES Scuola(CodMec)
+ DocRif INTEGER,
+ Scuola INTEGER,
+ FOREIGN KEY (DocRif) REFERENCES Persona(CodP), --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
+ FOREIGN KEY (Scuola) REFERENCES Scuola(CodMec) --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
 );
 
 CREATE TABLE Responsabile
 (CodResp INTEGER PRIMARY KEY,
  Tipo VARCHAR(16) NOT NULL CHECK (Tipo IN ('Persona', 'Classe')),
- IndividuoResp INTEGER NOT NULL,
- ClasseResp INTEGER NOT NULL,
- FOREIGN KEY (IndividuoResp) REFERENCES Persona(CodP),
- FOREIGN KEY (ClasseResp) REFERENCES Classe(CodC)
+ IndividuoResp INTEGER,
+ ClasseResp INTEGER,
+ FOREIGN KEY (IndividuoResp) REFERENCES Persona(CodP), --ON UPDATE CASCADE
+ FOREIGN KEY (ClasseResp) REFERENCES Classe(CodC) --ON UPDATE CASCADE
 );
 
 CREATE TABLE InfoAmbientali
@@ -81,9 +84,8 @@ CREATE TABLE Orto
  AdattoControllo BOOLEAN NOT NULL,
  NumSensori INTEGER NOT NULL,
  TipoSensori VARCHAR(16) NOT NULL CHECK (TipoSensori IN ('Sensore', 'Arduino')),
- Scuola INTEGER NOT NULL,
- --FOREIGN KEY (IDReplica) REFERENCES Replica(IDReplica),
- FOREIGN KEY (Scuola) REFERENCES Scuola(CodMec)
+ Scuola INTEGER,
+ FOREIGN KEY (Scuola) REFERENCES Scuola(CodMec) --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
 );
 
 CREATE TABLE Replica
@@ -91,21 +93,19 @@ CREATE TABLE Replica
  Gruppo VARCHAR(40) NOT NULL,
  DataDimora DATE NOT NULL,
  Esposizione VARCHAR(16) NOT NULL CHECK (Esposizione IN ('Sole', 'Ombra', 'MezzOmbra')),
- SpeciePianta VARCHAR(40) NOT NULL,
- ClasseDimora INTEGER NOT NULL,
- Orto INTEGER NOT NULL,
- Dispositivo INTEGER NOT NULL,
- FOREIGN KEY (SpeciePianta) REFERENCES Specie(NomeScientifico),
- FOREIGN KEY (ClasseDimora) REFERENCES Classe(CodC),
- FOREIGN KEY (Orto) REFERENCES Orto(CodOrto)
- --, FOREIGN KEY (Dispositivo) REFERENCES Dispositivo(IDDisp)
+ SpeciePianta VARCHAR(40),
+ ClasseDimora INTEGER, --NOT NULL
+ Orto INTEGER,
+ Dispositivo INTEGER,
+ FOREIGN KEY (SpeciePianta) REFERENCES Specie(NomeScientifico), --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
+ FOREIGN KEY (ClasseDimora) REFERENCES Classe(CodC), --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
+ FOREIGN KEY (Orto) REFERENCES Orto(CodOrto) --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
+ FOREIGN KEY (Dispositivo) REFERENCES Dispositivo(IDDisp) --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
 );
 
 CREATE TABLE Dispositivo
 (IDDisp INTEGER PRIMARY KEY,
  Tipo VARCHAR(16) NOT NULL CHECK (Tipo IN ('Sensore', 'Arduino')),
- IDReplica INTEGER NOT NULL,
- FOREIGN KEY (IDReplica) REFERENCES Replica(IDReplica)
 );
 
 CREATE TABLE Rilevazione
@@ -114,10 +114,11 @@ CREATE TABLE Rilevazione
  DataIns TIMESTAMP NOT NULL,
  RespIns VARCHAR(40),
  ModAcquisizione VARCHAR(16) NOT NULL CHECK (ModAcquisizione IN ('App', 'Base di Dati')),
- InfoAmb INTEGER NOT NULL,
- Dispositivo INTEGER NOT NULL,
- RespRilev INTEGER NOT NULL,
- FOREIGN KEY (InfoAmb) REFERENCES InfoAmbientali(CodInfo),
- FOREIGN KEY (Dispositivo) REFERENCES Dispositivo(IDDisp),
- FOREIGN KEY (RespRilev) REFERENCES Responsabile(CodResp)
+ InfoAmb INTEGER,
+ Dispositivo INTEGER,
+ RespRilev INTEGER,
+ FOREIGN KEY (InfoAmb) REFERENCES InfoAmbientali(CodInfo), --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
+ FOREIGN KEY (Dispositivo) REFERENCES Dispositivo(IDDisp), --NOT NULL, ON UPDATE CASCADE, ON DELETE CASCADE
+ FOREIGN KEY (RespRilev) REFERENCES Responsabile(CodResp) --NOT NULL ...?, ON UPDATE CASCADE, ON DELETE ...?
+ --FOREIGN KEY RespIns									  --NOT NULL ...?, ON UPDATE CASCADE, ON DELETE...?
 );
