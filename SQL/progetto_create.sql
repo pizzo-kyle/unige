@@ -11,7 +11,6 @@ CREATE TABLE Persona
  Ruolo VARCHAR(32) NOT NULL,
  ReferenteProg BOOLEAN NOT NULL,
  PartecipaProgFin BOOLEAN NOT NULL,
- Scuola INTEGER --FOREIGN KEY to add with ALTER TABLE
 );
 
 CREATE TABLE Scuola
@@ -22,17 +21,19 @@ CREATE TABLE Scuola
  Finanziamento BOOLEAN NOT NULL,
  TipoFin VARCHAR(32),
  Collabora BOOLEAN NOT NULL,
- Referente INTEGER,
- CONSTRAINT scuola_persona_fkey
- 	FOREIGN KEY (Referente) REFERENCES Persona(CodP)
- 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-ALTER TABLE Persona
- ADD CONSTRAINT persona_scuola_fkey
- FOREIGN KEY (Scuola) REFERENCES Scuola(CodMec)
- ON UPDATE CASCADE ON DELETE SET NULL
-;
+CREATE TABLE Referente
+(CodP INTEGER,
+ CONSTRAINT referente_persona_fkey
+ 	FOREIGN KEY (CodP) REFERENCES Persona(CodP)
+ 	ON UPDATE CASCADE,
+ CodMec INTEGER,
+ CONSTRAINT referente_scuola_fkey
+ 	FOREIGN KEY (CodMec) REFERENCES Scuola(CodMec)
+ 	ON UPDATE CASCADE,
+ PRIMARY KEY(CodP, CodMec)
+);
 
 CREATE TABLE Classe
 (CodC INTEGER PRIMARY KEY,
@@ -47,6 +48,9 @@ CREATE TABLE Classe
  	FOREIGN KEY (Scuola) REFERENCES Scuola(CodMec)
  	ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+--ALTER TABLE Classe
+--ADD COLUMN Nome VARCHAR(4) NOT NULL;
 
 CREATE TABLE Responsabile
 (CodResp INTEGER PRIMARY KEY,
@@ -101,8 +105,6 @@ CREATE TABLE Orto
  Superf DOUBLE PRECISION NOT NULL,
  Pulito BOOLEAN NOT NULL,
  AdattoControllo BOOLEAN NOT NULL,
- --NumSensori INTEGER NOT NULL,
- --TipoSensori VARCHAR(8) NOT NULL CHECK (TipoSensori IN ('Sensore', 'Arduino')),
  Scuola INTEGER,
  CONSTRAINT orto_scuola_fkey
 	 FOREIGN KEY (Scuola) REFERENCES Scuola(CodMec)
@@ -116,7 +118,7 @@ CREATE TABLE Dispositivo
 
 CREATE TABLE Replica
 (CodRepl INTEGER PRIMARY KEY,
- Gruppo INTEGER NOT NULL,
+ Gruppo VARCHAR(16) NOT NULL CHECK (Gruppo IN ('Di controllo', 'Da monitorare', 'Fitobotanica')),
  DataDimora DATE NOT NULL,
  Esposizione VARCHAR(16) NOT NULL CHECK (Esposizione IN ('Sole', 'Ombra', 'MezzOmbra', 'Sole/MezzOmbra', 'MezzOmbra/Sole')),
  SpeciePianta VARCHAR(40),
