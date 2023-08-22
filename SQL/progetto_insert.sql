@@ -1,5 +1,6 @@
 set search_path to "Progetto_BD2023";
-DELETE FROM referente;
+
+--DELETE FROM referente;
 INSERT INTO Referente(CodP,CodMec)
 VALUES(1,2),(2,1),(1,1),(3,2),(3,1),(1,3),(1,4);--,(4,2),(4,4);
 
@@ -32,22 +33,33 @@ INSERT INTO infoambientali(codinfo,largchioma,lungchioma,pesofrescochioma,pesose
 VALUES(2,12.5,21.7,0.5,0.3,11.2,31.3,1.3,1.1,0,0,0,0,7,21,23),
 	  (1,12.5,21.7,0.5,0.3,11.2,31.3,1.3,1.1,0,0,0,0,7,21,23);
 
+--DELETE FROM Specie;
 INSERT INTO Specie(nomescientifico,nomecomune,scopo)
-VALUES('Clus Nimphus', 'Clo ninfeo', 'Biomonitoraggio'),
-	  ('Culus Nimphus', 'Culo ninfeo', 'Fitobotanica');
+VALUES('Qlus Nimus', 'Qlo nimeo', 'Biomonitoraggio'),
+	  ('Culus Nimphus', 'Culo ninfeo', 'Fitobotanica'),
+	  ('Kadabra', 'Miciomiao', 'Biomonitoraggio'),
+	  ('Alakazam', 'Miaomicio', 'Biomonitoraggio');
 
+--DELETE FROM orto;
 INSERT INTO orto(codorto,nome,tipo,gps,superf,pulito,adattocontrollo,scuola)
 VALUES(1,'sturla','Pieno Campo','42.34, 9.56',30,'true','true',2),
-	  (2,'boccadasse','Vaso','44.34, 8.56',30,'true','true',1);
+	  (2,'boccadasse','Vaso','44.34, 8.56',30,'true','true',1),
+	  (3, 'Timbuctu', 'Vaso', '12.23, 32.89',15.34,'false','false',4);
 
 INSERT INTO dispositivo(coddisp,tipo)
 VALUES(2,'Arduino');
 	  (1,'Sensore');
 
+--DELETE FROM replica;
 INSERT INTO replica(codrepl,gruppo,datadimora,esposizione,speciepianta,classedimora,orto,dispositivo)
-VALUES(2,2,'2023/03/12','Sole/MezzOmbra','Clus Nimphus',2,20,2);
-	  (1,1,'2023/04/12','Ombra','Culus Nimphus',1,10,1);
-DELETE FROM rilevazione;
+VALUES(2,'Di controllo','2023/03/12','Sole/MezzOmbra','Qlus Nimus',2,2,2),
+	  (1,'Fitobotanica','2023/04/12','Ombra','Culus Nimphus',1,1,1),
+	  (3,'Da monitorare','2022/10/04','Sole','Alakazam',2,3,1),
+	  (4,'Da monitorare','2021/04/07','MezzOmbra','Alakazam',1,2,2),
+	  (6,'Da monitorare','2022/10/04','Sole','Kadabra',1,2,2),
+	  (7,'Di controllo','2023/04/12','MezzOmbra/Sole','Kadabra',2,3,1);
+
+--DELETE FROM rilevazione;
 INSERT INTO rilevazione(codril,datarilev,datains,modacquisizione,infoAmb,dispositivo,resprilev,respins)
 VALUES(3, '2023/04/30 11:53:29', '2023/04/30 22:34:56', 'App', 2,2,3,1),
 	  (2, '2023/04/30 23:01:13', '2023/05/20 15:39:19', 'App', 2,2,2,3),

@@ -161,3 +161,7 @@ CREATE TABLE Rilevazione
 	 FOREIGN KEY (RespIns) REFERENCES Responsabile(CodResp)
 	 ON UPDATE CASCADE ON DELETE NO ACTION
 );
+
+ALTER TABLE Rilevazione
+ ADD CONSTRAINT ck_dataril_ins
+ CHECK (DataIns >= DataRilev);
