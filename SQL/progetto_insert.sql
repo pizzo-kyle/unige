@@ -19,10 +19,12 @@ VALUES(4,'Mea', 'PI', 'Secondaria', 'true', 'gret', 'false'),
 	  (2,'Tizia', 'GE', 'Primaria', 'true', 'abcdefu', 'false'),
 	  (3,'Caia', 'GE', 'Primaria', 'false', NULL, 'true');
 
-INSERT INTO Classe(codc,ordine,tiposcuola,docrif,scuola)
-VALUES(1,'secondario','superiore',2,2),
-	  (2,'secondario','superiore',1,1);
-
+--DELETE FROM Classe;
+INSERT INTO Classe(codc,nome,ordine,tiposcuola,docrif,scuola)
+VALUES(1,'3E','secondario','superiore',2,2),
+	  (2,'2F','secondario','superiore',1,1);
+	  
+--DELETE FROM responsabile;
 INSERT INTO Responsabile
 VALUES(4, 'Persona',4,NULL),
 	  (1, 'Persona',3,NULL),
@@ -47,7 +49,7 @@ VALUES(1,'sturla','Pieno Campo','42.34, 9.56',30,'true','true',2),
 	  (3, 'Timbuctu', 'Vaso', '12.23, 32.89',15.34,'false','false',4);
 
 INSERT INTO dispositivo(coddisp,tipo)
-VALUES(2,'Arduino');
+VALUES(2,'Arduino'),
 	  (1,'Sensore');
 
 --DELETE FROM replica;
