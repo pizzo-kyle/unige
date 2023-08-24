@@ -1,9 +1,5 @@
 set search_path to "Progetto_BD2023";
 
---DELETE FROM referente;
-INSERT INTO Referente(CodP,CodMec)
-VALUES(1,2),(2,1),(1,1),(3,2),(3,1),(1,3),(1,4);--,(4,2),(4,4);
-
 INSERT INTO Persona(codp,nome,cognome,email,telefono,ruolo,referenteprog,partecipaprogfin)
 VALUES(4,'ert', 'cgbhf', 'djsghbjhdf', '463u345','docente','true','true'),
 	  (1,'mgeo','reo','georeo@gmail.com','3365987984','docente','true','true'),
@@ -18,6 +14,10 @@ VALUES(4,'Mea', 'PI', 'Secondaria', 'true', 'gret', 'false'),
 	  (1,'S5empronia', 'GE', 'Secondaria', 'true', 'geg', 'true'),
 	  (2,'Tizia', 'GE', 'Primaria', 'true', 'abcdefu', 'false'),
 	  (3,'Caia', 'GE', 'Primaria', 'false', NULL, 'true');
+	  
+--DELETE FROM referente;
+INSERT INTO Referente(CodP,CodMec)
+VALUES(1,2),(2,1),(1,1),(3,2),(3,1),(1,3),(1,4);--,(4,2),(4,4);
 
 --DELETE FROM Classe;
 INSERT INTO Classe(codc,nome,ordine,tiposcuola,docrif,scuola)
@@ -48,23 +48,27 @@ VALUES(1,'sturla','Pieno Campo','42.34, 9.56',30,'true','true',2),
 	  (2,'boccadasse','Vaso','44.34, 8.56',30,'true','true',1),
 	  (3, 'Timbuctu', 'Vaso', '12.23, 32.89',15.34,'false','false',4);
 
+--DELETE FROM dispositivo;
 INSERT INTO dispositivo(coddisp,tipo)
 VALUES(2,'Arduino'),
-	  (1,'Sensore');
+	  (1,'Sensore'),
+	  (3,'Sensore'),
+	  (4,'Sensore'),
+	  (5,'Arduino');
 
 --DELETE FROM replica;
 INSERT INTO replica(codrepl,gruppo,datadimora,esposizione,speciepianta,classedimora,orto,dispositivo)
 VALUES(2,'Di controllo','2023/03/12','Sole/MezzOmbra','Qlus Nimus',2,2,2),
 	  (1,'Fitobotanica','2023/04/12','Ombra','Culus Nimphus',1,1,1),
-	  (3,'Da monitorare','2022/10/04','Sole','Alakazam',2,3,1),
-	  (4,'Da monitorare','2021/04/07','MezzOmbra','Alakazam',1,2,2),
-	  (6,'Da monitorare','2022/10/04','Sole','Kadabra',1,2,2),
-	  (7,'Di controllo','2023/04/12','MezzOmbra/Sole','Kadabra',2,3,1);
+	  (3,'Da monitorare','2022/10/04','Sole','Alakazam',2,3,4),
+	  (4,'Da monitorare','2021/04/07','MezzOmbra','Alakazam',1,2,3),
+	  (6,'Da monitorare','2022/10/04','Sole','Kadabra',1,2,3),
+	  (7,'Di controllo','2023/04/12','MezzOmbra/Sole','Kadabra',2,3,5);
 
 --DELETE FROM rilevazione;
-INSERT INTO rilevazione(codril,datarilev,datains,modacquisizione,infoAmb,dispositivo,resprilev,respins)
-VALUES(3, '2023/04/30 11:53:29', '2023/04/30 22:34:56', 'App', 2,2,3,1),
-	  (2, '2023/04/30 23:01:13', '2023/05/20 15:39:19', 'App', 2,2,2,3),
+INSERT INTO rilevazione(codril,datarilev,datains,modacquisizione,infoAmb,dispositivo,respril,respins)
+VALUES(3, '2023/04/30 11:53:29', '2023/04/30 22:34:56', 'App', 2,4,3,1),
+	  (2, '2023/04/30 23:01:13', '2023/05/20 15:39:19', 'App', 2,3,2,3),
 	  (1, '2023/04/20 03:45:06', '2023/04/25 00:12:59', 'App', 1,1,1,4),
-	  (4, '2020/02/27 00:00:03', '2020/02/28 23:45:12', 'Base di Dati', 2,1,4,4),
-	  (5, '2010/12/23 00:00:00', '2015/10/24 21:45:11', 'App', 2,1,3,3);
+	  (4, '2020/02/27 00:00:03', '2020/02/28 23:45:12', 'Base di Dati', 2,5,4,4),
+	  (5, '2010/12/23 00:00:00', '2015/10/24 21:45:11', 'App', 2,2,3,3);

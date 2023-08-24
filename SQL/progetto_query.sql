@@ -11,10 +11,11 @@ WHERE S.Finanziamento = 'true' AND
         		  FROM Rilevazione Ril
         		  JOIN Responsabile R ON Ril.RespIns = R.CodResp
 				  JOIN Persona P ON R.IndividuoResp = P.CodP
-        		  LEFT JOIN Classe C ON R.ClasseResp = C.CodC
 				  JOIN Referente Ref ON Ref.CodP = P.CodP
+        		  LEFT JOIN Classe C ON R.ClasseResp = C.CodC
         		  WHERE (S.CodMec = Ref.CodMec OR C.Scuola = S.CodMec) AND
-				  Ril.DataIns BETWEEN '2022/09/01 00:00:00' AND '2023/06/30 23:59:59');
+				  Ril.DataIns BETWEEN '2022/09/01 00:00:00' AND '2023/06/30 23:59:59')
+;
 
 
 --Q2
@@ -39,39 +40,78 @@ GROUP BY R.SpeciePianta
 
 --Q3
 --Determinare per ogni scuola l’individuo/la classe della scuola che ha effettuato più rilevazioni
-SELECT S.CodMec, COUNT(DISTINCT Ril.CodRil) AS QtdRilevazione
+--test
+SELECT RespRil, Dispositivo, COUNT(RespRil) as no_ril
+FROM Rilevazione
+GROUP BY 1, 2;
+
+
+--Perfetta
+SELECT CodMec, RespRil, no_ril
+FROM (SELECT CodMec, RespRil, no_ril, RANK() OVER (PARTITION BY CodMec ORDER BY no_ril DESC) as rn --Or ROW_NUMBER for listing only one
+	  FROM (SELECT S.CodMec, Ril.RespRil, COUNT(Ril.CodRil) as no_ril
+			FROM Scuola S
+			  LEFT JOIN Orto O ON O.Scuola = S.CodMec
+			  LEFT JOIN Replica Rep ON Rep.Orto = O.CodOrto
+			  LEFT JOIN Dispositivo D ON D.CodDisp = Rep.Dispositivo
+			  LEFT JOIN Rilevazione Ril ON Ril.Dispositivo = D.CodDisp
+			GROUP BY S.CodMec, Ril.RespRil
+		   ) t
+	 ) s
+WHERE s.rn = 1
+ORDER BY no_ril DESC
+;
+
+--Giusta
+SELECT S.*
+FROM (SELECT DISTINCT ON (S.CodMec) S.*, Ril.RespRil, COUNT(Ril.CodRil) as n_rilperresp
+	  FROM Scuola S
+	  LEFT JOIN Orto O ON O.Scuola = S.CodMec
+	  LEFT JOIN Replica Rep ON Rep.Orto = O.CodOrto
+	  LEFT JOIN Dispositivo D ON D.CodDisp = Rep.Dispositivo
+	  LEFT JOIN Rilevazione Ril ON Ril.Dispositivo = D.CodDisp
+	  GROUP BY S.CodMec, Ril.RespRil
+	  ORDER BY S.CodMec, 3 DESC
+	 ) S
+;
+
+--Risultati giusti, manca scuola
+SELECT Ril.RespRil, COUNT(DISTINCT Ril.CodRil) AS QtdRilevazione
 FROM Scuola S
     LEFT JOIN Orto O ON O.Scuola = S.CodMec
-    LEFT JOIN Replica Rep ON Rep.Orto = O.codorto
+    LEFT JOIN Replica Rep ON Rep.Orto = O.CodOrto
     LEFT JOIN Dispositivo D ON D.CodDisp = Rep.Dispositivo
     LEFT JOIN Rilevazione Ril ON Ril.Dispositivo = D.CodDisp
 GROUP BY  1
-ORDER BY  2 DESC;
+ORDER BY  2 DESC
+;
 
-SELECT CodRil
+--test
+SELECT Ril.RespRil, COUNT(DISTINCT Ril.CodRil) AS QtdRilevazione
 FROM Rilevazione Ril
-JOIN Dispositivo D ON Ril.Dispositivo = D.CodDisp
+GROUP BY  1
+ORDER BY  2 DESC
+;
 
-SELECT RespRilev, COUNT(*)
-FROM Rilevazione Ril
-GROUP BY 1
-ORDER BY COUNT(*) DESC;
-
+--NO
 SELECT CONCAT(coalesce(P.nome,''),' ',coalesce(P.cognome,'')) as fullName, C.Nome, COUNT(Ril.resprilev) AS QtdRilevazione
 FROM Responsabile Resp 
 LEFT JOIN Rilevazione Ril ON Resp.codresp = Ril.resprilev
 LEFT JOIN Persona P ON Resp.individuoresp = P.codp
 LEFT JOIN Classe C ON Resp.classeresp = C.codc
 GROUP BY 1, 2
-ORDER BY 3 DESC;
+ORDER BY 3 DESC
 --LIMIT 1
+;
 
+--NO
 SELECT S.CodMec, COUNT(Ril.resprilev) AS QtdRilevazione
 FROM Scuola S
 JOIN Referente Ref ON Ref.CodMec = S.CodMec
 JOIN Persona P ON P.CodP = Ref.CodP
 LEFT JOIN Responsabile Resp ON Resp.IndividuoResp = P.CodP
 LEFT JOIN Classe C ON C.CodC = Resp.ClasseResp
-LEFT JOIN Rilevazione Ril ON Ril.RespRilev = Resp.CodResp
+LEFT JOIN Rilevazione Ril ON Ril.RespRil = Resp.CodResp
 GROUP BY  1
-ORDER BY  2 DESC;
+ORDER BY  2 DESC
+;

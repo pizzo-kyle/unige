@@ -60,15 +60,12 @@ CREATE TABLE Responsabile
  	ON UPDATE CASCADE ON DELETE CASCADE,
  CONSTRAINT responsabile_classe_fkey
  	FOREIGN KEY (ClasseResp) REFERENCES Classe(CodC)
- 	ON UPDATE CASCADE ON DELETE CASCADE
-);
-
---A XOR B
---(A AND NOT B) OR (NOT A AND B)
-ALTER TABLE Responsabile
- ADD CONSTRAINT ck_xor_resp --not both initialized
+ 	ON UPDATE CASCADE ON DELETE CASCADE,
+ CONSTRAINT xor_resp_check --IndividuoResp and ClasseResp cannot be both initialized, that is there can be only one Responsabile at a time
+ --A XOR B
+ --(A AND NOT B) OR (NOT A AND B)
  CHECK ((IndividuoResp IS NOT NULL AND ClasseResp IS NULL) OR (IndividuoResp IS NULL AND ClasseResp IS NOT NULL))
-;
+);
 
 CREATE TABLE InfoAmbientali
 (CodInfo INTEGER PRIMARY KEY,
@@ -99,7 +96,7 @@ CREATE TABLE Orto
 (CodOrto INTEGER PRIMARY KEY,
  Nome VARCHAR(20) NOT NULL,
  Tipo VARCHAR(16) NOT NULL CHECK (Tipo IN ('Vaso', 'Pieno Campo')),
- GPS VARCHAR(40)) NOT NULL,
+ GPS VARCHAR(40) NOT NULL,
  Superf DOUBLE PRECISION NOT NULL,
  Pulito BOOLEAN NOT NULL,
  AdattoControllo BOOLEAN NOT NULL,
@@ -139,12 +136,12 @@ CREATE TABLE Replica
 
 CREATE TABLE Rilevazione
 (CodRil INTEGER PRIMARY KEY,
- DataRilev TIMESTAMP NOT NULL,
+ DataRil TIMESTAMP NOT NULL,
  DataIns TIMESTAMP NOT NULL,
  ModAcquisizione VARCHAR(16) NOT NULL CHECK (ModAcquisizione IN ('App', 'Base di Dati')),
  InfoAmb INTEGER,
  Dispositivo INTEGER,
- RespRilev INTEGER,
+ RespRil INTEGER,
  RespIns INTEGER,
  CONSTRAINT rilevazione_infoambientali_fkey
 	 FOREIGN KEY (InfoAmb) REFERENCES InfoAmbientali(CodInfo)
@@ -152,14 +149,12 @@ CREATE TABLE Rilevazione
  CONSTRAINT rilevazione_dispositivo_fkey
 	 FOREIGN KEY (Dispositivo) REFERENCES Dispositivo(CodDisp)
 	 ON UPDATE CASCADE ON DELETE CASCADE,
- CONSTRAINT rilevazione_responsabile_p_fkey
-	 FOREIGN KEY (RespRilev) REFERENCES Responsabile(CodResp)
+ CONSTRAINT rilevazione_responsabile_ril_fkey
+	 FOREIGN KEY (RespRil) REFERENCES Responsabile(CodResp)
 	 ON UPDATE CASCADE ON DELETE NO ACTION,
- CONSTRAINT rilevazione_responsabile_c_fkey
+ CONSTRAINT rilevazione_responsabile_ins_fkey
 	 FOREIGN KEY (RespIns) REFERENCES Responsabile(CodResp)
-	 ON UPDATE CASCADE ON DELETE NO ACTION
+	 ON UPDATE CASCADE ON DELETE NO ACTION,
+ CONSTRAINT dataril_ins_check
+ 	 CHECK (DataIns >= DataRil)
 );
-
-ALTER TABLE Rilevazione
- ADD CONSTRAINT ck_dataril_ins
- CHECK (DataIns >= DataRilev);
