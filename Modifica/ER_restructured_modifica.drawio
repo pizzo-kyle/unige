@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-08-29T15:22:41.601Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36" etag="Yw8NyC2r_d2S140SJ75_" version="21.6.9" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-29T15:42:09.151Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36" etag="X1pCg7Z0Tjgx8pJgnL7A" version="21.6.9" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
-    <mxGraphModel dx="2074" dy="1118" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+    <mxGraphModel dx="2440" dy="1315" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1123,7 +1123,7 @@
         <mxCell id="FwptbRE5Cjejp8aSv0t5-5" value="GRUPPO" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1742.5" y="989.5" width="160" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="FwptbRE5Cjejp8aSv0t5-6" value="E&#39; CONTENUTO" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="FwptbRE5Cjejp8aSv0t5-6" value="E&#39; LOCALIZZATO" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1782.5" y="843.5" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="FwptbRE5Cjejp8aSv0t5-7" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="FwptbRE5Cjejp8aSv0t5-6" target="1GqtW3D0vnaD6hVMnLZm-12" edge="1">
