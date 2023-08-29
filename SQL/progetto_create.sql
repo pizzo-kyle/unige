@@ -89,7 +89,7 @@ CREATE TABLE InfoAmbientali
 CREATE TABLE Specie
 (NomeScientifico VARCHAR(40) PRIMARY KEY,
  NomeComune VARCHAR(30) NOT NULL,
- Scopo VARCHAR(16) NOT NULL CHECK (Scopo IN ('Biomonitoraggio', 'Fitobotanica'))
+ Scopo VARCHAR(16) NOT NULL CHECK (Scopo IN ('Biomonitoraggio', 'Fitobonifica'))
 );
 
 CREATE TABLE Orto
@@ -111,15 +111,25 @@ CREATE TABLE Dispositivo
  Tipo VARCHAR(8) NOT NULL CHECK (Tipo IN ('Sensore', 'Arduino'))
 );
 
+CREATE TABLE Gruppo
+(CodGruppo INTEGER PRIMARY KEY,
+ TipoGruppo VARCHAR(16) NOT NULL CHECK (TipoGruppo IN ('Di controllo', 'Da monitorare')),
+ AbbinatoA INTEGER DEFAULT NULL,
+ Orto INTEGER,
+ CONSTRAINT gruppo_orto_fkey
+ 	FOREIGN KEY (Orto) REFERENCES Orto(CodOrto)
+ 	ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 CREATE TABLE Replica
 (CodRepl INTEGER PRIMARY KEY,
- Gruppo VARCHAR(16) NOT NULL CHECK (Gruppo IN ('Di controllo', 'Da monitorare', 'Fitobotanica')),
  DataDimora DATE NOT NULL,
  Esposizione VARCHAR(16) NOT NULL CHECK (Esposizione IN ('Sole', 'Ombra', 'MezzOmbra', 'Sole/MezzOmbra', 'MezzOmbra/Sole')),
  SpeciePianta VARCHAR(40),
  ClasseDimora INTEGER,
  Orto INTEGER,
  Dispositivo INTEGER,
+ Gruppo INTEGER,
  CONSTRAINT replica_specie_fkey
  	FOREIGN KEY (SpeciePianta) REFERENCES Specie(NomeScientifico)
  	ON UPDATE CASCADE ON DELETE CASCADE,
@@ -131,23 +141,22 @@ CREATE TABLE Replica
  	ON UPDATE CASCADE ON DELETE CASCADE,
  CONSTRAINT replica_dispositivo_fkey
 	 FOREIGN KEY (Dispositivo) REFERENCES Dispositivo(CodDisp)
-	 ON UPDATE CASCADE ON DELETE CASCADE
+	 ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT replica_gruppo_fkey
+ 	FOREIGN KEY (Gruppo) REFERENCES Gruppo(CodGruppo)
+ 	ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE Rilevazione
 (CodRil INTEGER PRIMARY KEY,
  DataRil TIMESTAMP NOT NULL,
  DataIns TIMESTAMP NOT NULL,
- ModAcquisizione VARCHAR(16) NOT NULL CHECK (ModAcquisizione IN ('App', 'Base di Dati')),
  InfoAmb INTEGER,
- Dispositivo INTEGER,
  RespRil INTEGER,
  RespIns INTEGER,
+ Replica INTEGER,
  CONSTRAINT rilevazione_infoambientali_fkey
 	 FOREIGN KEY (InfoAmb) REFERENCES InfoAmbientali(CodInfo)
-	 ON UPDATE CASCADE ON DELETE CASCADE,
- CONSTRAINT rilevazione_dispositivo_fkey
-	 FOREIGN KEY (Dispositivo) REFERENCES Dispositivo(CodDisp)
 	 ON UPDATE CASCADE ON DELETE CASCADE,
  CONSTRAINT rilevazione_responsabile_ril_fkey
 	 FOREIGN KEY (RespRil) REFERENCES Responsabile(CodResp)
@@ -155,6 +164,9 @@ CREATE TABLE Rilevazione
  CONSTRAINT rilevazione_responsabile_ins_fkey
 	 FOREIGN KEY (RespIns) REFERENCES Responsabile(CodResp)
 	 ON UPDATE CASCADE ON DELETE NO ACTION,
+ CONSTRAINT rilevazione_replica_fkey
+ 	 FOREIGN KEY (Replica) REFERENCES Replica(CodRepl)
+	 ON UPDATE CASCADE ON DELETE CASCADE,
  CONSTRAINT dataril_ins_check
  	 CHECK (DataIns >= DataRil)
 );

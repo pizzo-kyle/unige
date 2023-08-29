@@ -1,4 +1,4 @@
-set search_path to "Progetto_BD2023";
+set search_path to 'Progetto_BD2023';
 
 INSERT INTO Persona(codp,nome,cognome,email,telefono,ruolo,referenteprog,partecipaprogfin)
 VALUES(4,'ert', 'cgbhf', 'djsghbjhdf', '463u345','docente','true','true'),
@@ -38,7 +38,7 @@ VALUES(2,12.5,21.7,0.5,0.3,11.2,31.3,1.3,1.1,0,0,0,0,7,21,23),
 --DELETE FROM Specie;
 INSERT INTO Specie(nomescientifico,nomecomune,scopo)
 VALUES('Qlus Nimus', 'Qlo nimeo', 'Biomonitoraggio'),
-	  ('Culus Nimphus', 'Culo ninfeo', 'Fitobotanica'),
+	  ('Culus Nimphus', 'Culo ninfeo', 'Fitobonifica'),
 	  ('Kadabra', 'Miciomiao', 'Biomonitoraggio'),
 	  ('Alakazam', 'Miaomicio', 'Biomonitoraggio');
 
@@ -66,7 +66,7 @@ VALUES(2,'Di controllo','2023/03/12','Sole/MezzOmbra','Qlus Nimus',2,2,2),
 	  (7,'Di controllo','2023/04/12','MezzOmbra/Sole','Kadabra',2,3,5);
 
 --DELETE FROM rilevazione;
-INSERT INTO rilevazione(codril,datarilev,datains,modacquisizione,infoAmb,dispositivo,respril,respins)
+INSERT INTO rilevazione(codril,dataril,datains,modacquisizione,infoAmb,dispositivo,respril,respins)
 VALUES(3, '2023/04/30 11:53:29', '2023/04/30 22:34:56', 'App', 2,4,3,1),
 	  (2, '2023/04/30 23:01:13', '2023/05/20 15:39:19', 'App', 2,3,2,3),
 	  (1, '2023/04/20 03:45:06', '2023/04/25 00:12:59', 'App', 1,1,1,4),
