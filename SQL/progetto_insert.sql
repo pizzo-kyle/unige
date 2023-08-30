@@ -31,6 +31,7 @@ VALUES(4, 'Persona',4,NULL),
 	  (2,'Persona',2,NULL),
 	  (3,'Classe',NULL,1);
 
+--DELETE FROM infoambientali;
 INSERT INTO infoambientali(codinfo,largchioma,lungchioma,pesofrescochioma,pesoseccochioma,altpianta,lungradici,pesofrescoradici,pesoseccoradici,numfiori,numfrutti,numfogliedann,superfdann,ph,umidità,temperatura)
 VALUES(2,12.5,21.7,0.5,0.3,11.2,31.3,1.3,1.1,0,0,0,0,7,21,23),
 	  (1,12.5,21.7,0.5,0.3,11.2,31.3,1.3,1.1,0,0,0,0,7,21,23);
@@ -56,19 +57,25 @@ VALUES(2,'Arduino'),
 	  (4,'Sensore'),
 	  (5,'Arduino');
 
+INSERT INTO gruppo(codgruppo,tipogruppo,abbinatoa,orto)
+VALUES(1,'Di controllo',4,2),
+	  (2,'Da monitorare',NULL,1),
+	  (3,'Di controllo',NULL,3),
+	  (4,'Da monitorare',1,2);
+
 --DELETE FROM replica;
-INSERT INTO replica(codrepl,gruppo,datadimora,esposizione,speciepianta,classedimora,orto,dispositivo)
-VALUES(2,'Di controllo','2023/03/12','Sole/MezzOmbra','Qlus Nimus',2,2,2),
-	  (1,'Fitobotanica','2023/04/12','Ombra','Culus Nimphus',1,1,1),
-	  (3,'Da monitorare','2022/10/04','Sole','Alakazam',2,3,4),
-	  (4,'Da monitorare','2021/04/07','MezzOmbra','Alakazam',1,2,3),
-	  (6,'Da monitorare','2022/10/04','Sole','Kadabra',1,2,3),
-	  (7,'Di controllo','2023/04/12','MezzOmbra/Sole','Kadabra',2,3,5);
+INSERT INTO replica(codrepl,datadimora,esposizione,speciepianta,classedimora,orto,dispositivo,gruppo)
+VALUES(2,'2023/03/12','Sole/MezzOmbra','Qlus Nimus',2,2,2,1),
+	  (1,'2023/04/12','Ombra','Culus Nimphus',1,1,1,2),
+	  (3,'2022/10/04','Sole','Alakazam',2,3,4,3),
+	  (4,'2021/04/07','MezzOmbra','Alakazam',1,2,3,1),
+	  (6,'2022/10/04','Sole','Kadabra',1,2,3,4),
+	  (7,'2023/04/12','MezzOmbra/Sole','Kadabra',2,3,5,3);
 
 --DELETE FROM rilevazione;
-INSERT INTO rilevazione(codril,dataril,datains,modacquisizione,infoAmb,dispositivo,respril,respins)
-VALUES(3, '2023/04/30 11:53:29', '2023/04/30 22:34:56', 'App', 2,4,3,1),
-	  (2, '2023/04/30 23:01:13', '2023/05/20 15:39:19', 'App', 2,3,2,3),
-	  (1, '2023/04/20 03:45:06', '2023/04/25 00:12:59', 'App', 1,1,1,4),
-	  (4, '2020/02/27 00:00:03', '2020/02/28 23:45:12', 'Base di Dati', 2,5,4,4),
-	  (5, '2010/12/23 00:00:00', '2015/10/24 21:45:11', 'App', 2,2,3,3);
+INSERT INTO rilevazione(codril,dataril,datains,infoAmb,respril,respins,replica)
+VALUES(3, '2023/04/30 11:53:29', '2023/04/30 22:34:56', 2,3,1,3),
+	  (2, '2023/04/30 23:01:13', '2023/05/20 15:39:19', 2,2,3,4),
+	  (1, '2023/04/20 03:45:06', '2023/04/25 00:12:59', 1,1,4,1),
+	  (4, '2020/02/27 00:00:03', '2020/02/28 23:45:12', 2,4,4,7),
+	  (5, '2010/12/23 00:00:00', '2015/10/24 21:45:11', 2,3,3,2);
