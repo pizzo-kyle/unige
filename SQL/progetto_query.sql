@@ -47,9 +47,9 @@ FROM (SELECT CodMec, RespRil, no_ril, RANK() OVER (PARTITION BY CodMec ORDER BY 
 	  FROM (SELECT S.CodMec, Ril.RespRil, COUNT(Ril.CodRil) as no_ril
 			FROM Scuola S
 			  JOIN Orto O ON O.Scuola = S.CodMec
-			  JOIN Replica Rep ON Rep.Orto = O.CodOrto
-			  JOIN Rilevazione Ril ON Ril.Replica = Rep.CodRepl
-			GROUP BY S.CodMec, Ril.RespRil--;
+			  JOIN Replica Repl ON Repl.Orto = O.CodOrto
+			  JOIN Rilevazione Ril ON Ril.Replica = Repl.CodRepl
+			GROUP BY S.CodMec, Ril.RespRil
 		   ) t
 	 ) s
 WHERE s.rn = 1

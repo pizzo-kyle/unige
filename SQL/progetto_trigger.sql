@@ -1,0 +1,49 @@
+set search_path to 'Progetto_BD2023';
+
+CREATE FUNCTION ContaRepliche() RETURNS trigger AS
+$$
+BEGIN
+IF ((SELECT COUNT(SpeciePianta)
+FROM REPLICA R
+JOIN CLASSE C ON C.codc=R.classedimora
+JOIN SCUOLA S ON S.codmec=C.scuola
+GROUP BY S.codmec
+HAVING COUNT(SpeciePianta) >3
+)>3)
+THEN
+--RAISE EXCEPTION 'internal error';
+RETURN NULL;
+ELSE
+RETURN NEW;
+END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE TRIGGER SPECIE3
+BEFORE INSERT ON REPLICA
+EXECUTE PROCEDURE ContaRepliche();
+
+
+
+
+CREATE FUNCTION ContaReplik() RETURNS trigger AS
+$$
+BEGIN
+IF 'true'
+THEN
+--RAISE EXCEPTION 'internal error';
+RETURN NULL;
+ELSE
+RETURN NEW;
+END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE TRIGGER SPEKIE
+BEFORE INSERT ON REPLICA
+EXECUTE PROCEDURE ContaReplik();
+
