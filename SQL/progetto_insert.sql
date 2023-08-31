@@ -40,7 +40,8 @@ INSERT INTO Specie(nomescientifico,nomecomune,scopo)
 VALUES('Qlus Nimus', 'Qlo nimeo', 'Biomonitoraggio'),
 	  ('Culus Nimphus', 'Culo ninfeo', 'Fitobonifica'),
 	  ('Kadabra', 'Miciomiao', 'Biomonitoraggio'),
-	  ('Alakazam', 'Miaomicio', 'Biomonitoraggio');
+	  ('Alakazam', 'Miaomicio', 'Biomonitoraggio'),
+	  ('Abra', 'maomao', 'Fitobonifica');
 
 --DELETE FROM orto;
 INSERT INTO orto(codorto,nome,tipo,gps,superf,pulito,adattocontrollo,scuola)
@@ -66,12 +67,17 @@ VALUES(1,'Di controllo',4,2),
 --DELETE FROM replica;
 INSERT INTO replica(codrepl,datadimora,esposizione,speciepianta,classedimora,orto,dispositivo,gruppo)
 VALUES(2,'2023/03/12','Sole/MezzOmbra','Qlus Nimus',2,2,2,1),
-	  (1,'2023/04/12','Ombra','Culus Nimphus',1,1,1,2),
-	  (3,'2022/10/04','Sole','Alakazam',2,3,4,3),
-	  (4,'2021/04/07','MezzOmbra','Alakazam',1,2,3,1),
-	  (6,'2022/10/04','Sole','Kadabra',1,2,3,4),
-	  (7,'2023/04/12','MezzOmbra/Sole','Kadabra',2,3,5,3),
-	  (8,'2021/04/07','Sole','Culus Nimphus',1,2,2,2);
+      (1,'2023/04/12','Ombra','Culus Nimphus',1,1,1,2),
+      (3,'2022/10/04','Sole','Alakazam',2,1,4,3),
+      (4,'2021/04/07','MezzOmbra','Alakazam',1,2,3,1),
+      (5,'2021/04/07','MezzOmbra','Kadabra',1,1,3,1),
+      (6,'2022/10/04','Sole','Kadabra',1,2,3,4),
+      (7,'2023/04/12','MezzOmbra/Sole','Kadabra',2,3,5,3),
+      (8,'2021/04/07','Sole','Culus Nimphus',1,3,2,2),
+      (9,'2021/04/07','MezzOmbra','Alakazam',1,3,3,1) ,
+      --(10,'2021/04/07','MezzOmbra','Abra',1,1,3,1),
+      --(11,'2021/04/07','MezzOmbra','Abra',1,2,3,1);
+      --(12,'2021/04/07','MezzOmbra','Abra',1,3,3,1);
 
 --DELETE FROM rilevazione;
 INSERT INTO rilevazione(codril,dataril,datains,infoAmb,respril,respins,replica)
