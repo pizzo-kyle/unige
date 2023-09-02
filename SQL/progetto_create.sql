@@ -119,6 +119,8 @@ CREATE TABLE Gruppo
  CONSTRAINT gruppo_orto_fkey
  	FOREIGN KEY (Orto) REFERENCES Orto(CodOrto)
  	ON UPDATE CASCADE ON DELETE CASCADE
+ CONSTRAINT bind_group_check
+	CHECK (CodGruppo <> AbbinatoA)
 );
 
 CREATE TABLE Replica
