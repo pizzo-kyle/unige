@@ -66,31 +66,49 @@ EXECUTE PROCEDURE ContaRepliche();
 /*T2: generazione di un messaggio (o inserimento di una informazione di warning in qualche tabella)
 quando viene rilevato un valore decrescente per un parametro di biomassa.*/
 
+/*Abbiamo avuto problemi con i confronti nella trigger function (da riga 102):
+in particolare inserendo nel campo 'larghezzachioma' valori minori di 10.1, il trigger non parte*/
+
 CREATE OR REPLACE FUNCTION CheckParametri() RETURNS trigger AS
 $$
-DECLARE 
+DECLARE  
  CheckLargChioma REAL;
  CheckLungChioma REAL;
  CheckPesoFrescoChioma FLOAT(3);
  CheckPesoSeccoChioma FLOAT(3);
  CheckAltPianta REAL;
  CheckLungRadici REAL;
+ NewLargChioma REAL;
+ NewLungChioma REAL;
+ NewPesoFrescoChioma FLOAT(3);
+ NewPesoSeccoChioma FLOAT(3);
+ NewAltPianta REAL;
+ NewLungRadici REAL;
+ 
 BEGIN
 	SELECT largchioma,lungchioma,pesofrescochioma,pesoseccochioma,altpianta,lungradici 
 	INTO CheckLargChioma, CheckLungChioma, CheckPesoFrescoChioma, CheckPesoSeccoChioma, CheckAltPianta, CheckLungRadici
-	FROM InfoAmbientali
+	FROM InfoAmbientali JOIN Rilevazione R ON R.InfoAmb = CodInfo 
+	WHERE R.Replica = NEW.Replica
+	--GROUP BY codinfo
 	ORDER BY largchioma,lungchioma,pesofrescochioma,pesoseccochioma,altpianta,lungradici
 	LIMIT 1;
 	
-	IF (NEW.largchioma < CheckLargChioma OR NEW.lungchioma < CheckLungChioma OR NEW.pesofrescochioma < CheckPesoFrescoChioma
-	   OR NEW.pesoseccochioma < CheckPesoSeccoChioma OR NEW.altpianta < CheckAltPianta OR  NEW.lungradici < CheckLungRadici)
+	SELECT largchioma,lungchioma,pesofrescochioma,pesoseccochioma,altpianta,lungradici 
+	INTO NewLargChioma, NewLungChioma, NewPesoFrescoChioma, NewPesoSeccoChioma, NewAltPianta, NewLungRadici
+	FROM InfoAmbientali JOIN Rilevazione R ON NEW.InfoAmb = CodInfo
+	WHERE R.Replica = NEW.Replica;
+	
+	IF (NewLargChioma < CheckLargChioma OR NewLungChioma < CheckLungChioma OR NewPesoFrescoChioma < CheckPesoFrescoChioma
+	   OR NewPesoSeccoChioma < CheckPesoSeccoChioma OR NewAltPianta < CheckAltPianta OR NewLungRadici < CheckLungRadici)
 	THEN
 		RAISE NOTICE 'Rilevato un valore decrescente per un parametro di biomassa!';
 	END IF;
+	RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER warning_parametri
-AFTER INSERT ON InfoAmbientali
+AFTER INSERT ON Rilevazione
 FOR EACH ROW
 EXECUTE PROCEDURE CheckParametri();
