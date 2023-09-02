@@ -10,5 +10,5 @@ CREATE VIEW InfoRiassuntive AS
 		JOIN Gruppo G ON G.CodGruppo = Repl.Gruppo
 		JOIN Rilevazione Ril ON Ril.Replica = Repl.CodRepl
 		JOIN InfoAmbientali InfoAmb ON InfoAmb.CodInfo = Ril.InfoAmb
-	WHERE Scopo = 'Biomonitoraggio' AND Ril.DataRil BETWEEN '30/04/2021 23:59:59'   AND '31/08/2023 23:59:59'
+	WHERE Scopo = 'Biomonitoraggio' AND (EXTRACT (MONTH FROM Ril.DataRil) = EXTRACT (MONTH FROM CURRENT_DATE))
 	GROUP BY G.CodGruppo,G.TipoGruppo, Repl.SpeciePianta, Repl.Orto, InfoAmb.pH, InfoAmb.Temperatura, InfoAmb.Umidità;
