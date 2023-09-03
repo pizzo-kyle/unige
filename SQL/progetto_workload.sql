@@ -10,11 +10,11 @@ GROUP BY O.CodOrto
 
 
 --W2
---Determinare le repliche messe a dimora nell'anno scolastico corrente
+--Determinare le repliche messe a dimora in data odierna
 SELECT R.CodRepl, O.CodOrto
 FROM Replica R
 JOIN Orto O ON R.Orto = O.CodOrto
-WHERE DataDimora BETWEEN '2022/09/01' AND '2023/06/30'
+WHERE DataDimora = CURRENT_DATE;
 ;
 
 
