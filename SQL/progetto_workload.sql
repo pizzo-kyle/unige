@@ -18,7 +18,7 @@ WHERE DataDimora = CURRENT_DATE AND Tipo = 'Vaso';
 
 
 --W3
---Per ogni rilevazione antecedente alla data odierna, determinare da chi è stata effettuata effettuata
+--Per ogni rilevazione antecedente alla data odierna, determinare da chi è stata effettuata
 SELECT Ril.CodRil, R.CodResp, R.Tipo
 FROM Rilevazione Ril 
   JOIN Responsabile R ON Ril.RespRil = R.CodResp
