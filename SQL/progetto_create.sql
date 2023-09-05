@@ -1,4 +1,4 @@
-set search_path to 'Progetto_BD2023';
+set search_path to 'progetto_bd2023';
 
 --DA VEDERE TIPI CODICI/CHIAVI
 
