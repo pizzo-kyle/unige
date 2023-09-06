@@ -1,4 +1,4 @@
-set search_path to "Progetto_BD2023";
+set search_path to 'progetto_bd2023';
 
 -- f1 funzione che realizza l’abbinamento tra gruppo e gruppo di controllo nel caso di operazioni di biomonitoraggio
 
@@ -8,16 +8,30 @@ DECLARE
 	CheckCodGruppo INTEGER;
 	CheckTipoGruppo VARCHAR(16);
 	CheckAbbinamento INTEGER;
-	TempAbbinamento INTEGER = ;
+	TempAbbinamento INTEGER;
+	ContaGruppi INTEGER;
+	TotGruppi REAL;
 	CursoreGruppi CURSOR FOR 
 		SELECT CodGruppo,TipoGruppo,AbbinatoA 
 		FROM Gruppo;
 BEGIN
-	OPEN CursoreGruppi;
-	FETCH CursoreGruppi INTO CheckCodGruppo, CheckTipoGruppo , CheckAbbinamento;
+	SELECT COUNT(*) INTO ContaGruppi FROM GRUPPO WHERE TipoGruppo='Di controllo';
+	SELECT COUNT(*) INTO TotGruppi FROM GRUPPO;
+	IF( ContaGruppi != (TotGruppi/2) )
+	THEN
+		RAISE NOTICE 'Deve esserci lo stesso numero di gruppi di controllo e da monitorare per realizzare l abbinamento!';
+		RETURN;
+	END IF;	
+	OPEN CursoreGruppi;	
 	WHILE FOUND LOOP
 		BEGIN
-			IF (CheckTipoGruppo = 'Da monitorare' /*AND CheckAbbinamento IS NULL*/) THEN
+			FETCH CursoreGruppi INTO CheckCodGruppo, CheckTipoGruppo , CheckAbbinamento;
+			IF(CheckAbbinamento IS NOT NULL)
+			THEN 
+				CONTINUE;
+			END IF;
+			
+			IF (CheckTipoGruppo = 'Da monitorare') THEN
 					SELECT MIN(CodGruppo) INTO TempAbbinamento
 									 FROM GRUPPO 
 									 WHERE TipoGruppo = 'Di controllo' AND AbbinatoA IS NULL;
@@ -31,14 +45,7 @@ BEGIN
 						WHERE CodGruppo = TempAbbinamento;
 					END IF;	
 					
-			/*ELSEIF (CheckTipoGruppo = 'Da monitorare' AND CheckAbbinamento IS NOT NULL) THEN
-					UPDATE Gruppo
-					SET AbbinatoA = (SELECT CodGruppo
-									 FROM Gruppo 
-									 WHERE AbbinatoA = CheckCodGruppo)
-					WHERE CodGruppo = CheckAbbinamento;
-			END IF;		*/
-			ELSEIF(CheckTipoGruppo = 'Di controllo' /*AND CheckAbbinamento IS NULL*/) THEN
+			ELSEIF(CheckTipoGruppo = 'Di controllo') THEN
 					SELECT MIN(CodGruppo) INTO TempAbbinamento
 									 FROM GRUPPO 
 									 WHERE TipoGruppo = 'Da monitorare' AND AbbinatoA IS NULL;
@@ -50,17 +57,7 @@ BEGIN
 						UPDATE Gruppo
 						SET AbbinatoA = CheckCodGruppo
 						WHERE CodGruppo = TempAbbinamento;
-					END IF;	
-					/*UPDATE Gruppo
-					SET AbbinatoA = (SELECT MIN(CodGruppo)
-									 FROM GRUPPO 
-									 WHERE TipoGruppo = 'Da monitorare' AND AbbinatoA IS NULL)/* AND CodGruppo NOT IN (SELECT AbbinatoA FROM Gruppo)CodGruppo <> CheckCodGruppo AND CodGruppo NOT IN (SELECT AbbinatoA FROM Gruppo WHERE AbbinatoA <> CodGruppo))*/
-					WHERE CodGruppo = CheckCodGruppo;	*/		 				
-			/*ELSEIF (CheckTipoGruppo = 'Di controllo' AND CheckAbbinamento IS NOT NULL) THEN
-					UPDATE Gruppo
-					SET AbbinatoA = CodGruppo
-					WHERE CodGruppo = CheckAbbinamento;*/
-				
+					END IF;					
 			END IF;
 			FETCH CursoreGruppi INTO CheckCodGruppo, CheckTipoGruppo , CheckAbbinamento;
 		END;
