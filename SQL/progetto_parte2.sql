@@ -349,16 +349,30 @@ DECLARE
 	CheckCodGruppo INTEGER;
 	CheckTipoGruppo VARCHAR(16);
 	CheckAbbinamento INTEGER;
-	TempAbbinamento INTEGER = ;
+	TempAbbinamento INTEGER;
+	ContaGruppi INTEGER;
+	TotGruppi REAL;
 	CursoreGruppi CURSOR FOR 
 		SELECT CodGruppo,TipoGruppo,AbbinatoA 
 		FROM Gruppo;
 BEGIN
-	OPEN CursoreGruppi;
-	FETCH CursoreGruppi INTO CheckCodGruppo, CheckTipoGruppo , CheckAbbinamento;
+	SELECT COUNT(*) INTO ContaGruppi FROM GRUPPO WHERE TipoGruppo='Di controllo';
+	SELECT COUNT(*) INTO TotGruppi FROM GRUPPO;
+	IF( ContaGruppi != (TotGruppi/2) )
+	THEN
+		RAISE NOTICE 'Deve esserci lo stesso numero di gruppi di controllo e da monitorare per realizzare l abbinamento!';
+		RETURN;
+	END IF;	
+	OPEN CursoreGruppi;	
 	WHILE FOUND LOOP
 		BEGIN
-			IF (CheckTipoGruppo = 'Da monitorare' ) THEN
+			FETCH CursoreGruppi INTO CheckCodGruppo, CheckTipoGruppo , CheckAbbinamento;
+			IF(CheckAbbinamento IS NOT NULL)
+			THEN 
+				CONTINUE;
+			END IF;
+			
+			IF (CheckTipoGruppo = 'Da monitorare') THEN
 					SELECT MIN(CodGruppo) INTO TempAbbinamento
 									 FROM GRUPPO 
 									 WHERE TipoGruppo = 'Di controllo' AND AbbinatoA IS NULL;
@@ -372,7 +386,7 @@ BEGIN
 						WHERE CodGruppo = TempAbbinamento;
 					END IF;	
 					
-			ELSEIF(CheckTipoGruppo = 'Di controllo' ) THEN
+			ELSEIF(CheckTipoGruppo = 'Di controllo') THEN
 					SELECT MIN(CodGruppo) INTO TempAbbinamento
 									 FROM GRUPPO 
 									 WHERE TipoGruppo = 'Da monitorare' AND AbbinatoA IS NULL;
@@ -384,7 +398,7 @@ BEGIN
 						UPDATE Gruppo
 						SET AbbinatoA = CheckCodGruppo
 						WHERE CodGruppo = TempAbbinamento;
-					END IF;				
+					END IF;					
 			END IF;
 			FETCH CursoreGruppi INTO CheckCodGruppo, CheckTipoGruppo , CheckAbbinamento;
 		END;
