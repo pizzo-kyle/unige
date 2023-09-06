@@ -121,7 +121,7 @@ CREATE TABLE Gruppo
 	CHECK (CodGruppo <> AbbinatoA)
 );
 
-CREATE TABLE Replica
+CREATE TABLE Pianta
 (CodRepl INTEGER PRIMARY KEY,
  DataDimora DATE NOT NULL,
  Esposizione VARCHAR(16) NOT NULL CHECK (Esposizione IN ('Sole', 'Ombra', 'MezzOmbra', 'Sole/MezzOmbra', 'MezzOmbra/Sole')),
@@ -130,19 +130,19 @@ CREATE TABLE Replica
  Orto INTEGER,
  Dispositivo INTEGER,
  Gruppo INTEGER,
- CONSTRAINT replica_specie_fkey
+ CONSTRAINT pianta_specie_fkey
  	FOREIGN KEY (SpeciePianta) REFERENCES Specie(NomeScientifico)
  	ON UPDATE CASCADE ON DELETE CASCADE,
- CONSTRAINT replica_classe_fkey
+ CONSTRAINT pianta_classe_fkey
  	FOREIGN KEY (ClasseDimora) REFERENCES Classe(CodC)
  	ON UPDATE CASCADE ON DELETE CASCADE,
- CONSTRAINT replica_orto_fkey
+ CONSTRAINT pianta_orto_fkey
  	FOREIGN KEY (Orto) REFERENCES Orto(CodOrto)
  	ON UPDATE CASCADE ON DELETE CASCADE,
- CONSTRAINT replica_dispositivo_fkey
+ CONSTRAINT pianta_dispositivo_fkey
 	 FOREIGN KEY (Dispositivo) REFERENCES Dispositivo(CodDisp)
 	 ON UPDATE CASCADE ON DELETE CASCADE,
-  CONSTRAINT replica_gruppo_fkey
+  CONSTRAINT pianta_gruppo_fkey
  	FOREIGN KEY (Gruppo) REFERENCES Gruppo(CodGruppo)
  	ON UPDATE CASCADE ON DELETE SET NULL
 );
@@ -154,7 +154,7 @@ CREATE TABLE Rilevazione
  InfoAmb INTEGER,
  RespRil INTEGER,
  RespIns INTEGER,
- Replica INTEGER,
+ Pianta INTEGER,
  CONSTRAINT rilevazione_infoambientali_fkey
 	 FOREIGN KEY (InfoAmb) REFERENCES InfoAmbientali(CodInfo)
 	 ON UPDATE CASCADE ON DELETE CASCADE,
@@ -164,8 +164,8 @@ CREATE TABLE Rilevazione
  CONSTRAINT rilevazione_responsabile_ins_fkey
 	 FOREIGN KEY (RespIns) REFERENCES Responsabile(CodResp)
 	 ON UPDATE CASCADE ON DELETE NO ACTION,
- CONSTRAINT rilevazione_replica_fkey
- 	 FOREIGN KEY (Replica) REFERENCES Replica(CodRepl)
+ CONSTRAINT rilevazione_pianta_fkey
+ 	 FOREIGN KEY (Pianta) REFERENCES Pianta(CodRepl)
 	 ON UPDATE CASCADE ON DELETE CASCADE,
  CONSTRAINT dataril_ins_check
  	 CHECK (DataIns >= DataRil)
@@ -194,7 +194,7 @@ VALUES(1,2),(2,1),(1,1),(3,2),(3,1),(1,3),(1,4);
 --DELETE FROM Classe;
 INSERT INTO Classe(codc,nome,ordine,tiposcuola,docrif,scuola)
 VALUES(1,'3E','secondario','superiore',2,2),
-	  (2,'2F','secondario','superiore',1,1)
+	  (2,'2F','secondario','superiore',1,1),
 	  (3,'2B', 'secondaria', 'agrario',3,3);
 
 --DELETE FROM responsabile;
@@ -224,7 +224,7 @@ VALUES('Solanum lycopersicum', 'Pomodoro', 'Biomonitoraggio'),
 INSERT INTO orto(codorto,nome,tipo,gps,superf,pulito,adattocontrollo,scuola)
 VALUES(1,'sturla','Pieno Campo','42.34, 9.56',30,'true','false',2),
 	  (2,'boccadasse','Vaso','44.34, 8.56',30,'false','false',1),
-	  (3, 'Timbuctu', 'Vaso', '12.23, 32.89',15.34,'false','false',4)
+	  (3, 'Timbuctu', 'Vaso', '12.23, 32.89',15.34,'false','false',4),
 	  (4,'Tikitaka', 'Vaso', '02.13, 11.69',09.24,'true','true',3);
 
 --DELETE FROM dispositivo;
@@ -240,13 +240,13 @@ INSERT INTO gruppo(codgruppo,tipogruppo,abbinatoa,orto)
 VALUES(1,'Di controllo',4,4),
 	  (2,'Da monitorare',NULL,3),
 	  (3,'Di controllo',NULL,4),
-	  (4,'Da monitorare',1,2)
+	  (4,'Da monitorare',1,2),
 	  (5,'Da monitorare',NULL,3),
 	  (6,'Di controllo',NULL,1);
 	  
 
---DELETE FROM replica;
-INSERT INTO replica(codrepl,datadimora,esposizione,speciepianta,classedimora,orto,dispositivo,gruppo)
+--DELETE FROM Pianta;
+INSERT INTO Pianta(codrepl,datadimora,esposizione,speciepianta,classedimora,orto,dispositivo,gruppo)
 VALUES(2,'2023/03/12','Sole/MezzOmbra','Solanum lycopersicum',2,2,2,1),
 	  (1,'2023/04/12','Ombra','Ocimum basilicum',1,1,1,2),
 	  (3,'2022/10/04','Sole','Hyacinthus',2,1,4,3),
@@ -262,7 +262,7 @@ VALUES(2,'2023/03/12','Sole/MezzOmbra','Solanum lycopersicum',2,2,2,1),
 
 	   
 --DELETE FROM rilevazione;
-INSERT INTO rilevazione(codril,dataril,datains,infoAmb,respril,respins,replica)
+INSERT INTO rilevazione(codril,dataril,datains,infoAmb,respril,respins,pianta)
 VALUES(3, '2023/04/30 11:53:29', '2023/04/30 22:34:56', 2,3,1,3),
 	  (2, '2023/09/01 23:01:13', '2023/09/02 05:39:19', 2,2,3,4),
 	  (1, '2023/04/20 03:45:06', '2023/04/25 00:12:59', 1,1,4,1),
@@ -281,9 +281,9 @@ almeno tre parametri, quelli che si ritengono più significativi)*/
 CREATE VIEW InfoRiassuntive AS 
 	SELECT EXTRACT (MONTH FROM Ril.DataRil) mese, COUNT(Repl.CodRepl) as NumRepl,G.CodGruppo,G.TipoGruppo, Repl.SpeciePianta, Repl.Orto,
 		AVG(InfoAmb.pH) as pH, AVG(InfoAmb.Temperatura)as Temperatura, AVG(InfoAmb.Umidità) as Umidita
-	FROM Replica Repl JOIN Specie S ON Repl.SpeciePianta = S.NomeScientifico
+	FROM Pianta Repl JOIN Specie S ON Repl.SpeciePianta = S.NomeScientifico
 		JOIN Gruppo G ON G.CodGruppo = Repl.Gruppo
-		JOIN Rilevazione Ril ON Ril.Replica = Repl.CodRepl
+		JOIN Rilevazione Ril ON Ril.Pianta = Repl.CodRepl
 		JOIN InfoAmbientali InfoAmb ON InfoAmb.CodInfo = Ril.InfoAmb
 	WHERE Scopo = 'Biomonitoraggio' AND EXTRACT (YEAR FROM Ril.DataRil) = 2023
 	GROUP BY mese,G.CodGruppo,G.TipoGruppo, Repl.SpeciePianta, Repl.Orto; 
@@ -311,13 +311,13 @@ WHERE S.Finanziamento = 'true' AND
 --Determinare le specie per cui non è possibile determinare province in cui non sono utilizzate (tutte le scuole sono aderenti al progetto)
 
 SELECT R.SpeciePianta
-FROM Replica R
+FROM Pianta R
 WHERE NOT EXISTS (SELECT *
 				  FROM Scuola S
 				  WHERE NOT EXISTS (SELECT *
 									FROM Scuola S1
 									JOIN Orto O ON S1.CodMec = O.Scuola
-									JOIN Replica R1 ON O.CodOrto = R1.Orto
+									JOIN Pianta R1 ON O.CodOrto = R1.Orto
 									WHERE R1.SpeciePianta = R.SpeciePianta 
 									AND S1.Prov = S.Prov)
 				 )
@@ -331,8 +331,8 @@ FROM (SELECT CodMec, RespRil, no_ril, RANK() OVER (PARTITION BY CodMec ORDER BY 
 	  FROM (SELECT S.CodMec, Ril.RespRil, COUNT(Ril.CodRil) as no_ril
 			FROM Scuola S
 			  JOIN Orto O ON O.Scuola = S.CodMec
-			  JOIN Replica Repl ON Repl.Orto = O.CodOrto
-			  JOIN Rilevazione Ril ON Ril.Replica = Repl.CodRepl
+			  JOIN Pianta Repl ON Repl.Orto = O.CodOrto
+			  JOIN Rilevazione Ril ON Ril.Pianta = Repl.CodRepl
 			GROUP BY S.CodMec, Ril.RespRil
 		   ) t
 	 ) s
@@ -413,7 +413,7 @@ SELECT AbbinaGruppi();
  e due date, determina i valori medi dei parametri rilevati per tale replica nel periodo compreso tra le due date*/
 
 CREATE OR REPLACE FUNCTION 
-	ControlloParametri (IN CodiceReplica Replica.CodRepl%TYPE, IN DataInizio TIMESTAMP, IN DataFine TIMESTAMP)
+	ControlloParametri (IN CodiceReplica Pianta.CodRepl%TYPE, IN DataInizio TIMESTAMP, IN DataFine TIMESTAMP)
 RETURNS TABLE(
 	MediaLargChioma double precision,
 	MediaLungChioma double precision,
@@ -436,7 +436,7 @@ DECLARE
 	CheckScopo VARCHAR(16);
 BEGIN
 	SELECT Scopo INTO STRICT CheckScopo
-	FROM Specie JOIN Replica ON NomeScientifico = SpeciePianta
+	FROM Specie JOIN Pianta ON NomeScientifico = SpeciePianta
 	WHERE CodRepl = CodiceReplica;
 	
 	IF (CheckScopo = 'Fitobonifica')
@@ -445,7 +445,7 @@ BEGIN
 		SELECT AVG(LargChioma), AVG(LungChioma), AVG(PesoFrescoChioma), AVG(PesoSeccoChioma), AVG(AltPianta), AVG(LungRadici), AVG(PesoFrescoRadici), AVG(PesoSeccoRadici), AVG(NumFiori), AVG(NumFrutti), AVG(NumFoglieDann), AVG(SuperfDann), AVG(pH), AVG(Umidità), AVG(Temperatura)
 		FROM InfoAmbientali
 		JOIN Rilevazione Ril ON CodInfo = Ril.InfoAmb
-			JOIN Replica Repl ON Repl.CodRepl = Ril.Replica
+			JOIN Pianta Repl ON Repl.CodRepl = Ril.Pianta
 		WHERE Repl.CodRepl = CodiceReplica AND Ril.DataRil BETWEEN DataInizio AND DataFine;
 	ELSE RAISE NOTICE 'La replica considerata non è a scopo di Fitobonifica!';
 	END IF;
@@ -461,7 +461,7 @@ $$
 DECLARE TempScuola VARCHAR(30);
 BEGIN
 	IF ((SELECT COUNT (DISTINCT SpeciePianta)
-	FROM REPLICA R
+	FROM Pianta R
 	JOIN Orto O ON O.CodOrto=R.Orto
 	JOIN Scuola S ON O.Scuola=S.CodMec
 	WHERE NEW.SpeciePianta <> R.SpeciePianta AND (SELECT S1.CodMec
@@ -484,7 +484,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER non_piu_di_tre
-BEFORE INSERT OR UPDATE ON Replica
+BEFORE INSERT OR UPDATE ON Pianta
 FOR EACH ROW
 EXECUTE PROCEDURE ContaSpecie();
 
@@ -496,14 +496,14 @@ DECLARE
 	TempGruppo INTEGER;
 BEGIN
 	IF ((SELECT COUNT(R.CodRepl)
-		FROM REPLICA R
+		FROM Pianta R
 		WHERE NEW.Gruppo = R.Gruppo
 		GROUP BY R.Gruppo
 		HAVING COUNT(R.CodRepl) >=20
 	)>=20)
 	THEN
 		SELECT R.Gruppo INTO TempGruppo
-		FROM Replica R JOIN Gruppo G ON R.Gruppo = G.CodGruppo
+		FROM Pianta R JOIN Gruppo G ON R.Gruppo = G.CodGruppo
 		WHERE R.Gruppo = NEW.Gruppo;
 		RAISE EXCEPTION 'Il Gruppo % contiene già 20 repliche', TempGruppo;
 	ELSE
@@ -513,7 +513,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER non_piu_di_venti
-BEFORE INSERT OR UPDATE ON Replica
+BEFORE INSERT OR UPDATE ON Pianta
 FOR EACH ROW
 EXECUTE PROCEDURE ContaRepliche();
 
@@ -544,14 +544,14 @@ BEGIN
 	SELECT largchioma,lungchioma,pesofrescochioma,pesoseccochioma,altpianta,lungradici 
 	INTO CheckLargChioma, CheckLungChioma, CheckPesoFrescoChioma, CheckPesoSeccoChioma, CheckAltPianta, CheckLungRadici
 	FROM InfoAmbientali JOIN Rilevazione R ON R.InfoAmb = CodInfo 
-	WHERE R.Replica = NEW.Replica
+	WHERE R.Pianta = NEW.Pianta
 	ORDER BY largchioma,lungchioma,pesofrescochioma,pesoseccochioma,altpianta,lungradici
 	LIMIT 1;
 	
 	SELECT largchioma,lungchioma,pesofrescochioma,pesoseccochioma,altpianta,lungradici 
 	INTO NewLargChioma, NewLungChioma, NewPesoFrescoChioma, NewPesoSeccoChioma, NewAltPianta, NewLungRadici
 	FROM InfoAmbientali JOIN Rilevazione R ON NEW.InfoAmb = CodInfo
-	WHERE R.Replica = NEW.Replica;
+	WHERE R.Pianta = NEW.Pianta;
 	
 	IF (NewLargChioma < CheckLargChioma OR NewLungChioma < CheckLungChioma OR NewPesoFrescoChioma < CheckPesoFrescoChioma
 	   OR NewPesoSeccoChioma < CheckPesoSeccoChioma OR NewAltPianta < CheckAltPianta OR NewLungRadici < CheckLungRadici)
