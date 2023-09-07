@@ -3,14 +3,14 @@ set search_path to 'progetto_bd2023';
 
 --Determinare il numero totale di piante per ogni orto pulito
 SELECT O.CodOrto, COUNT(R.CodRepl)
-FROM Replica R 
+FROM Pianta R 
   JOIN Orto O ON R.Orto = O.CodOrto
 WHERE O.Pulito = TRUE  
 GROUP BY O.CodOrto;
 
 --Determinare le repliche messe a dimora in vaso in data odierna
 SELECT R.CodRepl, O.CodOrto
-FROM Replica R 
+FROM Pianta R 
   JOIN Orto O ON R.Orto = O.CodOrto
 WHERE DataDimora = CURRENT_DATE AND Tipo = 'Vaso';
 
@@ -28,14 +28,14 @@ ON Orto(CodOrto);
 CLUSTER Orto
 USING idx_orto_codorto;
 
-CREATE INDEX idx_replica_orto
-ON Replica(Orto);
-CLUSTER Replica
-USING idx_repliche_orto;
+CREATE INDEX idx_pianta_orto
+ON Pianta(Orto);
+CLUSTER Pianta
+USING idx_pianta_orto;
 
 --Indici per query 2 del workload
-CREATE INDEX idx_replica_datadimora
-ON Replica USING HASH (DataDimora);
+CREATE INDEX idx_pianta_datadimora
+ON Pianta USING HASH (DataDimora);
 
 CREATE INDEX idx_orto_tipo
 ON Orto USING HASH (Tipo);
@@ -45,6 +45,11 @@ CREATE INDEX idx_rilevazione_dataril
 ON Rilevazione(DataRil);
 CLUSTER Rilevazione
 USING idx_rilevazione_dataril;
+
+CREATE INDEX idx_responsabile_codresp
+ON Responsabile (CodResp);
+CLUSTER Responsabile
+USING idx_responsabile_codresp;
 
 --GESTIONE ACCESSO
 CREATE USER ProfRossi PASSWORD 'ProfRossi';
@@ -81,7 +86,7 @@ GRANT ALL PRIVILEGES
 ON Dispositivo TO Gestoreprogetto
 WITH GRANT OPTION;
 GRANT ALL PRIVILEGES 
-ON Replica TO Gestoreprogetto
+ON Pianta TO Gestoreprogetto
 WITH GRANT OPTION;
 GRANT ALL PRIVILEGES 
 ON Gruppo TO Gestoreprogetto
@@ -136,10 +141,10 @@ GRANT select
 	TO Insegnante,Studente;
 
 GRANT select
-	ON Replica
+	ON Pianta
 	TO Insegnante,Studente;
 GRANT insert,update
-	ON Replica
+	ON Pianta
 	TO Studente;
 	
 GRANT select
